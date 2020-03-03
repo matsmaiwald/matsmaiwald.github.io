@@ -19,13 +19,13 @@ categories: misc
 
 # Bonds have done better during recessions
 
-![posts_image-title-here3](./plots/portfolio_returns.png)
+![posts_image-title-here3](./plots/portfolio_returns.png){:class="img-responsive"}
 
-![posts_image-title-here3](plots/portfolio_returns.png)
+![posts_image-title-here3](plots/portfolio_returns.png){:class="img-responsive"}
 
-![relative_image-title-here4](/_posts/plots/portfolio_returns.png)
+![relative_image-title-here4](/_posts/plots/portfolio_returns.png){:class="img-responsive"}
 
-![absolute_image-title-here](https://github.com/matsmaiwald/historical_asset_returns/blob/master/plots/returns_during_recessions.png)
+![absolute_image-title-here](https://github.com/matsmaiwald/historical_asset_returns/blob/master/plots/returns_during_recessions.png){:class="img-responsive"}
 
 # ETF-Index portfolios' return profiles for different equity shares
 - 30% stocks
