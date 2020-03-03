@@ -23,3 +23,4 @@ categories: misc
 - 30% stocks
 - 60% stocks
 - 90% stocks
+![a screenshot example](plots/portfolio_returns.png)
