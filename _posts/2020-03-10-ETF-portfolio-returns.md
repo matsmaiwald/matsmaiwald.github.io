@@ -21,6 +21,8 @@ categories: misc
 
 ![posts_image-title-here3](./plots/portfolio_returns.png)
 
+![posts_image-title-here3](plots/portfolio_returns.png)
+
 ![relative_image-title-here4](/_posts/plots/portfolio_returns.png)
 
 ![absolute_image-title-here](https://github.com/matsmaiwald/historical_asset_returns/blob/master/plots/returns_during_recessions.png)
