@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The equity share's effect on the return profile of a simple index-ETF portfolio""
+title: "The equity share's effect on the return profile of a simple index-ETF portfolio"
 categories: misc
 ---
 
