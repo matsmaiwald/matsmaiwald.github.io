@@ -52,6 +52,8 @@ minima:
 #header_pages:
 # - about.md
 
+#baseurl: "https://matsmaiwald.github.io"
+
 # Build settings
 theme: minima
 
