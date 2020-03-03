@@ -19,9 +19,9 @@ categories: misc
 
 # Bonds have done better during recessions
 
-![posts_image-title-here3](./plots/portfolio_returns.png){:class="img-responsive"}
+![posts_image-title-here8](assets/plots/portfolio_returns.png){:class="img-responsive"}
 
-![posts_image-title-here3](plots/portfolio_returns.png){:class="img-responsive"}
+![posts_image-title-here3](/assets/plots/portfolio_returns.png){:class="img-responsive"}
 
 ![relative_image-title-here4](/_posts/plots/portfolio_returns.png){:class="img-responsive"}
 
