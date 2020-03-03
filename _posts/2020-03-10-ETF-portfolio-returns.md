@@ -23,12 +23,11 @@ categories: misc
 # On average, stocks have higher returns but also higher volatility
 ![Stock returns](/assets/plots/return_histogramm_S&P500.png)
 
-![3 months treasuries](/assets/plots/3-months treasuries.png)
+![3 months treasuries](/assets/plots/return_histogramm_3-months treasuries.png)
 
-![10 year treasuries](/assets/plots/10-year treasuries.png)
+![10 year treasuries](/assets/plots/return_histogramm_10-year treasuries.png)
 # Bonds have done better during recessions
 
-![Portfolio returns](/assets/plots/portfolio_returns.png)
 
 ![Returns during recessions](/assets/plots/returns_during_recessions.png)
 # ETF-Index portfolios' return profiles for different stock shares
