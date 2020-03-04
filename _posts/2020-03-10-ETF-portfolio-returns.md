@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ETF-index portfolios during a recessions"
+title: "Understanding the opportunities and risks of ETF-index portfolios"
 categories: misc
 ---
 
@@ -19,11 +19,11 @@ As is typical for stocks vs bonds, the S&P500 has a better average return than t
 ![3 months treasuries](/assets/plots/return_histogramm_3-months_treasuries.png)
 
 ![10 year treasuries](/assets/plots/return_histogramm_10-year_treasuries.png)
-## Bonds have particularly good returns in years which the stock market tanks
-Below we see that, as stock markets tank, investors move their funds into safer assets such as treasuries, boosting treasury returns.
+## Bonds show decent returns in years which the stock market tanks
+Below, we see that, as stock markets tank, investors move their funds into safer assets such as treasuries. As a result, the returns to treasuries typically balance those of stocks in a portfolio containing both asset classes.
 
 ![Returns during recessions](/assets/plots/returns_during_recessions.png)
-## ETF-Index portfolios' return profiles for different stock shares
+## ETF-Index portfolios' historic return profiles over a five-year horizon
 Lastly, let's explore how different types of simple index-ETF portfolios would have done
 historically. We'll look at portfolios with 30%, 60% and 90% of their assets in stocks.
 We then ask the question: how would these portfolios have done historically. In fact, we
