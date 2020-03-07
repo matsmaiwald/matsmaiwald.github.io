@@ -1,21 +1,30 @@
 ---
 layout: post
-title: "Understanding the opportunities and risks of ETF-index portfolios"
+title: "Historical asset returns and their implications for short term portfolio risk"
 categories: misc
 ---
 
-## We have little historical data on the performance of index-ETF portfolios
+## Why this post?
+## Short- and mid-term risks matter for most investors
+
+## We have little data on the performance of index-ETF portfolios
 Low-cost portfolios based on a combination of stock and bond index-ETFs are very popular nowadays. However, we have very little historical data on the performance of these portfolios, since most of them were created after the last recession in 2008/2009.
+
 
 ## Approximating index-ETF portfolio returns by looking at historical data
 In the absence of historical on the portfolios themselves, we can instead look at historical data for their underlying components to get a feel for how an index-ETF portfolio would have performend in the past.
 
 Specifically, thanks to an economist from NYU, we have historical data for the yearly returns of the S&P500 and treasuries (3-months and 10-years maturity) going back to 1928.
 
-## On average, stocks have higher returns but also higher volatility
+## Some basic facts
+
+### Stocks: high returns and volatility
+
+On average, stocks have higher returns but also higher volatility
 As is typical for stocks vs bonds, the S&P500 has a better average return than the two treasuries, though there are also many years with negative returns. This is less so the case for 10 year bonds. 3-months treasuries have never had negative returns, though their upside is also very limited.
 ![Stock returns](/assets/plots/return_histogramm_S&P500.png)
 
+### Bonds: lower returns and stability
 ![3 months treasuries](/assets/plots/return_histogramm_3-months_treasuries.png)
 
 ![10 year treasuries](/assets/plots/return_histogramm_10-year_treasuries.png)
@@ -28,7 +37,10 @@ Lastly, let's explore how different types of simple index-ETF portfolios would h
 historically. We'll look at portfolios with 30%, 60% and 90% of their assets in stocks.
 We then ask the question: how would these portfolios have done historically. In fact, we
 ask, how these portfolios would have done over any consecutive 5-year period between
-1928 and 2018. We then
+1928 and 2018. For example, we start in the year 1927 and ask what the value of 100 dollars invested would be after *one year* (fill in number). Then we ask what the value of the same 100 dollars invested in 1927 would be after *two years*, i.e. in 1929. We then do the same for the third, fourth and fifth year. Presumably, the value would increase over time, but this does not have to be the case. We then repeat this exercise by looking at the value of a 100 dollars invested in 1928, i.e. looking at the returns in the year 1929, 1930, 1931, 1932 and 1932. Doing this for every year between 1927 and 2013 (we need data up to 2018 to determine the five-year returns for 100 dollars invested in 2013), sorting the portfolio values into five bins, one for each of the five years, and sorting each bin gives us the following graph. 
+
+
+We then
 order the outcomes for every year -- that is year 1, 2, 3, 4 and 5 of holding the portfolio. In the plots below, the light-green and light-red area capture the returns that one would have received in 90% of the cases. The top area (dark-green) and the bottom area (dark-red) show the value of the portfolio in the top 10 and bottom 10 percent of cases.
 ### 30% stocks
 ![Portfolio returns](/assets/plots/portfolio_returns_30.png)
