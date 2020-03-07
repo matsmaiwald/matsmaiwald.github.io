@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Historical asset returns and their implications for short term portfolio risk"
+title: "Approximating ETF-portfolio return distributions via historical asset returns"
 categories: misc
 ---
 
 ## Overview
-In this post, I look at historical asset returns to get a better understanding of the short and midterm fluctuations that diversified stock and bond portfolios go through.
+In this post, I look at historical asset returns to approximate distributions of different index-ETF portfolio returns.
 
 <!-- ## Short- and mid-term risks matter for most investors
 The reason for looking at value fluctuations of portfolios is that most (private) investors, apart from being interested in the expected return of their portfolio, also care about  -->
@@ -45,32 +45,41 @@ The reason why most portfolios combine stocks with bonds, is that both assets te
 Below, returns are plotted over time, allowing us to see that in years when  stocks give negative returns (shaded in grey), bonds show positive, often higher than normal, returns. This is the mechanism that typically reduces the risk of multi- vs single-asset porftolios.
 
 ![Returns during recessions](/assets/plots/returns_during_recessions.png)
-## Combining stocks with bonds leaves a non-neglible risk of low or negative returns over a five year investment period
 
-Bringing everything together, we can now assess how portfolios that combine investments in the S&P500 with those in government bonds have done historically, starting with a portfolio that consists to 60% of the S&P500 and of three-months and 10-year government bonds to 20% each.
 
-### Generating historic portfolio returns
+## Calculating historical portfolio returns
+- as mentioned above, we can approximate the distribution of index-portfolio returns by calculating historic distributions.
+- To estimate the true distribution of portfolio returns over a five year horizon, we calculate portfolio returns for all five-year windows in the data.
+- we start in the year 1927 and ask what the value of 100 dollars invested would be after *one year*. Then we ask what the value of the same 100 dollars invested in 1927 would be after *two years*, i.e. in 1929 and do the same for the third, fourth and fifth year. 
+- we then shift the window by one year and look at the value of a 100 dollars invested in 1928, i.e. looking at the returns in the year 1929, 1930, 1931, 1932 and 1932. 
+- Doing this for every year between 1927 and 2013 (we need data up to 2018 to determine the five-year returns for 100 dollars invested in 2013), and plotting returns together, depending on their relative position in the time window gives us the estimated distribution
 
-Lastly, let's explore how different types of simple index-ETF portfolios would have done
+- For a portfolio that invests 60% in the S&P500 and 20% into 3-months and 10 year treasuries each, the distribution looks as follows: 
+
+
+![Portfolio returns](/assets/plots/portfolio_returns_60.png)
+
+In this and the two plots below, the light-green and light-red area capture the returns that one would have received in 80% of the cases. The top area (dark-green) and the bottom area (dark-red) show the value of the portfolio in the top 10 and bottom 10 percent of cases.
+
+ In the case of 60% initial investment in the S&P500, the chance of losses after 4 years is only at 10 percent. Half the time, the cumulative returns exceed 50 percent.
+
+## Different asset allocations
+
+### 30% stocks
+For a more conservative portfolio, the cumulative return after five years lies between 18% and 70% percent in 80 percent of the cases. The chance of
+cumulative losses after 5 years is less than 10 percent.
+![Portfolio returns](/assets/plots/portfolio_returns_30.png)
+
+
+<!-- Lastly, let's explore how different types of simple index-ETF portfolios would have done
 historically. We'll look at portfolios with 30%, 60% and 90% of their assets in stocks.
 We then ask the question: how would these portfolios have done historically. In fact, we
 ask, how these portfolios would have done over any consecutive 5-year period between
-1928 and 2018. For example, we start in the year 1927 and ask what the value of 100 dollars invested would be after *one year* (fill in number). Then we ask what the value of the same 100 dollars invested in 1927 would be after *two years*, i.e. in 1929. We then do the same for the third, fourth and fifth year. Presumably, the value would increase over time, but this does not have to be the case. We then repeat this exercise by looking at the value of a 100 dollars invested in 1928, i.e. looking at the returns in the year 1929, 1930, 1931, 1932 and 1932. Doing this for every year between 1927 and 2013 (we need data up to 2018 to determine the five-year returns for 100 dollars invested in 2013), sorting the portfolio values into five bins, one for each of the five years, and sorting each bin gives us the following graph. 
+1928 and 2018. For example, we start in the year 1927 and ask what the value of 100 dollars invested would be after *one year* (fill in number). Then we ask what the value of the same 100 dollars invested in 1927 would be after *two years*, i.e. in 1929. We then do the same for the third, fourth and fifth year. Presumably, the value would increase over time, but this does not have to be the case. We then repeat this exercise by looking at the value of a 100 dollars invested in 1928, i.e. looking at the returns in the year 1929, 1930, 1931, 1932 and 1932. Doing this for every year between 1927 and 2013 (we need data up to 2018 to determine the five-year returns for 100 dollars invested in 2013), sorting the portfolio values into five bins, one for each of the five years, and sorting each bin gives us the following graph.  -->
 
-
-We then
-order the outcomes for every year -- that is year 1, 2, 3, 4 and 5 of holding the portfolio. In the plots below, the light-green and light-red area capture the returns that one would have received in 90% of the cases. The top area (dark-green) and the bottom area (dark-red) show the value of the portfolio in the top 10 and bottom 10 percent of cases.
-### 30% stocks
-![Portfolio returns](/assets/plots/portfolio_returns_30.png)
-While this is the most conservative of all the three portfolios, one would still end up
-with a return of between 18% and 70% percent in 90 percent of the cases. The chance of
-cumulative losses after 5 years is less than 5 percent.
-### 60% stocks
-![Portfolio returns](/assets/plots/portfolio_returns_60.png)
-As expected, upside and downside both increase as the equity share is doubled. In the
-case of 60% initial investment in the S&P500, the chance of losses is only at 10 percent
-after 4 years. Half the time, the cumulative returns exceed 50 percent.
 ### 90% stocks
+
+As expected, upside and downside both increase if the equity share is 90%.
 ![Portfolio returns](/assets/plots/portfolio_returns_90.png)
 The inherent risk of the 90 percent stock portfolio is immediately obvious from the
 plot. For each year, the risk of having a portfolio that is worth less what was
