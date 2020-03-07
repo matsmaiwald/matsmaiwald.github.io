@@ -4,35 +4,53 @@ title: "Historical asset returns and their implications for short term portfolio
 categories: misc
 ---
 
-## Why this post?
-## Short- and mid-term risks matter for most investors
+## Overview
+In this post, I look at historical asset returns to get a better understanding of the short and midterm fluctuations that diversified stock and bond portfolios go through.
+
+<!-- ## Short- and mid-term risks matter for most investors
+The reason for looking at value fluctuations of portfolios is that most (private) investors, apart from being interested in the expected return of their portfolio, also care about  -->
 
 ## We have little data on the performance of index-ETF portfolios
-Low-cost portfolios based on a combination of stock and bond index-ETFs are very popular nowadays. However, we have very little historical data on the performance of these portfolios, since most of them were created after the last recession in 2008/2009.
+Low-cost portfolios based on a combination of stock and bond index-ETFs are very popular these days. They offer broad diversification at a fraction of fees charged by traditional portfolio managers. Because inde-ETFs are a relatively new asset class however, we have very little historical data on their performance, or that of any portfolios consisting of index-ETFs. In particular, we have very little data on their behaviour during recessions.
 
 
 ## Approximating index-ETF portfolio returns by looking at historical data
-In the absence of historical on the portfolios themselves, we can instead look at historical data for their underlying components to get a feel for how an index-ETF portfolio would have performend in the past.
+In the absence of historical data, we can instead look at historical data for the underlying indeces that index-ETFs track, to get a better idea for how an index-ETF portfolio would have performend in the past.
 
-Specifically, thanks to an economist from NYU, we have historical data for the yearly returns of the S&P500 and treasuries (3-months and 10-years maturity) going back to 1928.
+Specifically, thanks to Aswath Damodaran of NYU, we have historical data for the yearly returns of the S&P500 and US government bonds (3-months and 10-years maturity) going back to 1928 [(available here)](http://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histretSP.html).
 
 ## Some basic facts
 
-### Stocks: high returns and volatility
+Looking at the yearly return data, we can first confirm the following well-known basic facts, which together are often referred to as the *equity premium* in Economics and Finance.
 
-On average, stocks have higher returns but also higher volatility
-As is typical for stocks vs bonds, the S&P500 has a better average return than the two treasuries, though there are also many years with negative returns. This is less so the case for 10 year bonds. 3-months treasuries have never had negative returns, though their upside is also very limited.
+### 1.) Stocks: high returns and high volatility
+
 ![Stock returns](/assets/plots/return_histogramm_S&P500.png)
 
-### Bonds: lower returns and stability
+Plotting a histogramm of the S&P500's returns shows that there is considerable variance around the average 11% return: in some years gains or losses of 40% and above are recorded.
+
+### 2.) Bonds: lower returns and lower volatility
+As the two graphs below show, the longer a bond's maturity, the more its returns resemble those of stocks: 
+
+- the 3-months bonds are very stable with returns that are never negative, very limited in their upside, and on average equal to 3%. 
+- 10-year bonds have a slightly higher mean return of 5%. There are a few years with returns above 20% but also a couple with negative returns of up to -10%.
+  
 ![3 months treasuries](/assets/plots/return_histogramm_3-months_treasuries.png)
 
 ![10 year treasuries](/assets/plots/return_histogramm_10-year_treasuries.png)
-## Bonds show decent returns in years which the stock market tanks
-Below, we see that, as stock markets tank, investors move their funds into safer assets such as treasuries. As a result, the returns to treasuries typically balance those of stocks in a portfolio containing both asset classes.
+
+## Combining stocks and bonds reduces portfolio risk
+The reason why most portfolios combine stocks with bonds, is that both assets tend perform better at different times in the business cycle, meaning that they balance each other out -- a prime example of diversification.
+
+Below, returns are plotted over time, allowing us to see that in years when  stocks give negative returns (shaded in grey), bonds show positive, often higher than normal, returns. This is the mechanism that typically reduces the risk of multi- vs single-asset porftolios.
 
 ![Returns during recessions](/assets/plots/returns_during_recessions.png)
-## ETF-Index portfolios' historic return profiles over a five-year horizon
+## Combining stocks with bonds leaves a non-neglible risk of low or negative returns over a five year investment period
+
+Bringing everything together, we can now assess how portfolios that combine investments in the S&P500 with those in government bonds have done historically, starting with a portfolio that consists to 60% of the S&P500 and of three-months and 10-year government bonds to 20% each.
+
+### Generating historic portfolio returns
+
 Lastly, let's explore how different types of simple index-ETF portfolios would have done
 historically. We'll look at portfolios with 30%, 60% and 90% of their assets in stocks.
 We then ask the question: how would these portfolios have done historically. In fact, we
