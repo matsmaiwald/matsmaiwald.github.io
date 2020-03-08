@@ -18,7 +18,7 @@ In the absence of data on index-ETF performance, we can instead look at historic
 
 Specifically, thanks to Aswath Damodaran of NYU, we have historical data for the yearly returns of the S&P500 and US government bonds (3-months and 10-years maturity) going back to 1928 [(available here)](http://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histretSP.html).
 
-## Some basic facts aboun stock and bond returns
+## Some basic facts about stock and bond returns
 
 Looking at the yearly return data, we can first confirm the following well-known basic facts, which together are often referred to as the *equity premium* in Economics and Finance.
 
@@ -59,7 +59,7 @@ In this and the two plots below, the light-green and light-red area capture the 
 
  In the case of 60% initial investment in the S&P500, the chance of cumulative losses after 4 years, for example, is only at 10 percent. Half the time, the cumulative returns exceed 50 percent.
 
-## Different asset allocations
+## Changes in the distribution as the equity share varies
 
 ### 30% stocks
 For a more conservative portfolio, the cumulative return after five years lies between 18% and 70% percent in 80 percent of the cases. The chance of
@@ -75,12 +75,8 @@ ask, how these portfolios would have done over any consecutive 5-year period bet
 
 ### 90% stocks
 
-As expected, upside and downside both increase if the equity share is 90%.
 ![Portfolio returns](/assets/plots/portfolio_returns_90.png)
-The inherent risk of the 90 percent stock portfolio is immediately obvious from the
-plot. For each year, the risk of having a portfolio that is worth less what was
-originally invested is 10 percent or more. At the same time, there is a 50 percent
-chance of exceeding cumulative returns of 70 percent.
+As expected, upside and downside both increase if the equity share is 90%. The inherent risk of the 90 percent stock portfolio is immediately obvious from the plot. For each year, the risk of having a portfolio that is worth less what was originally invested is 10 percent or more. At the same time, there is a 50 percent chance of exceeding cumulative returns of 70 percent.
 
 <!-- ## Appendix 
 
