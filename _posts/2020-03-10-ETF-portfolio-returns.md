@@ -75,8 +75,10 @@ ask, how these portfolios would have done over any consecutive 5-year period bet
 
 ### 90% stocks
 
-![Portfolio returns](/assets/plots/portfolio_returns_90.png)
 As expected, upside and downside both increase if the equity share is 90%. The inherent risk of the 90 percent stock portfolio is immediately obvious from the plot. For each year, the risk of having a portfolio that is worth less what was originally invested is 10 percent or more. At the same time, there is a 50 percent chance of exceeding cumulative returns of 70 percent.
+
+![Portfolio returns](/assets/plots/portfolio_returns_90.png)
+
 
 <!-- ## Appendix 
 
