@@ -59,7 +59,7 @@ In this and the two plots below, the light-green and light-red area capture the 
 
  In the case of 60% initial investment in the S&P500, the chance of cumulative losses after 4 years, for example, is only at 10 percent. Half the time, the cumulative returns exceed 50 percent.
 
-## Changes in the distribution as the equity share varies
+## The effects of low and high equity shares
 
 ### 30% stocks
 For a more conservative portfolio, the cumulative return after five years lies between 18% and 70% percent in 80 percent of the cases. The chance of
