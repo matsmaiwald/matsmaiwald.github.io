@@ -21,7 +21,7 @@ projects
 ```
 An exemplary output of `git-hist` looks like this:
 
-![Example](/assets/screenshot/git-hist-example.png)
+![Example](/assets/screenshots/git-hist-example.png)
 
 # Installation
 To use the script, simply clone the repo:
