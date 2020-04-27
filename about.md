@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-Here I will write more about myself in the future.
+I'm  a Data Scientist with a background in Economics. Things that get me excited include machine learning, clean code and pragmatic, reliable processes. 
