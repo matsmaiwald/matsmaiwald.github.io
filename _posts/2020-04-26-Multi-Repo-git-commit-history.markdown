@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Multi-repo git commit history"
+title:  "Multi-repo git commit history cli tool"
 categories: misc
 ---
-# Git commit history for multiple repositories
-I often use `git log` to remind myself of the last commits I added to my code. In many cases, I have to checkout more than repo to get the full picture of where I left off. In fact, this happens so often that I decided to write a small, neat shell script that I can call with a simple `git-hist` which traverses all git repos in a directory and displays the latest commits.
 
-# Example
+I often use `git log` to remind myself of the last commits I added to my code. In many cases, I have to checkout more than one repo to get the full picture of where I left off. In fact, this happens so often that I decided to write a small, neat shell script that I can call with a simple `git-hist` which traverses all git repos in a directory and displays the latest commits.
+
+## Example
 Imagine the following folder structure.
 ```
 projects    
@@ -23,7 +23,7 @@ An exemplary output of `git-hist` looks like this:
 
 ![Example](/assets/screenshots/git-hist-example.png)
 
-# Installation
+## Installation
 To use the script, simply clone the repo:
 
 {% highlight bash %}
@@ -37,5 +37,5 @@ export PATH=$PATH:<path to cli_tools repo>
 {% endhighlight %}
 
 
-# Source code
+## Source code
 Direct link to the source code [(here)](https://github.com/matsmaiwald/cli_tools/blob/master/git-hist)
