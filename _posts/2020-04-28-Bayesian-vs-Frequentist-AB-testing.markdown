@@ -18,27 +18,30 @@ Following scenario
 - Another bystander approaches you to take bets
 - Who do you bet on and how confident can you be? 
 
-## Bayesian vs Frequentist AB test: brief recap of theory
+## Bayesian vs Frequentist AB test: brief recap of the different approaches
 
-### Frequentist solution
-Quick recap:
-- start with $H_0: \mu_d = \mu_s$
+### Frequentist approach
+The frequentist approach essentially consists of the two following steps:
+1. Get a point estimate of the difference between the two players' shooting ability. In our case it is simply the difference in the observed shooting percentage: $\overline{X}_d - \overline{X}_s$ 
+
+2. Figure out whether the difference in measured shooting percentage is large enough to dismiss the possibility that both shooting percentages are actually equal (our null hypothesis). More formally this would be written as
+- $H_0: \mu_d = \mu_s$
 - using CLT, we know that under $H_0: \overline{X}_d - \overline{X}_s \sim \mathcal{N}(0 ,\sigma)$
 
 - with $$ \sigma = \sqrt{ \frac{s^{2}_{d}}{N_d} + \frac{s^{2}_{s}}{N_s} }$$
 
-- Calculate t-statistic to see whether we can reject the null hypothesis
-### Bayesian solution
+- Calculate t-statistic to see whether the probability that the observed difference was actually drawn from $\mathcal{N}(0 ,\sigma)$ is below a pre-specified percerntage cutoff such that we feel comfortable rejecting the null hypothesis.
+### Bayesian approach
 
-In Bayesian inference we directly deal with the posterior probability, which is $Pr(\mu_s,\mu_d\|data)$ and e.g. for Dirk's true shooting percentage is calculated as $Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$. $Pr(data\|\mu_d) we get directly from the data and the likelihood. In this case, the obvious choice for likelihood is binomial.$
+In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. The posterior probability distribution of e.g. Dirk's true shooting percentag is defined $Pr(\mu_s,\mu_d\|data)$ and according to _Bayes' rule_ can be calculated as $Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$. $Pr(data\|\mu_d)$ we get directly from the data and the likelihood. In this case, the obvious choice for likelihood model is binomial.
 
 As regards the prior, we know that the true shooting percentage needs to lie between 0 and 1 for either player, so choose the beta distribution for the prior. 
 
 With this we can calculate the numerator of the posterior, and since the denominator is just a constant (which is easy to calculate in this toy example, but can often not be solved by analytical methods) we can approximate $Pr(\mu_d\|data)$ numerically by drawing samples from it via  MCMC sampling. 
 
-Once we have approximated the posterior distribution of both shooting percentages, we also have the distribution of the difference of their shooting percentage, with which we can directly make probabilistic statements about our hypothesis.
+Once we have approximated the posterior distribution of both shooting percentages, we also have the distribution of the difference of their shooting percentage, with which we can directly make probabilistic statements such as _there is an x-percent probability that Dirk is a better free-throw shooter than Shaq_.
 
-## Both solutions in action
+## Both approaches in action
 ### Generating some data
 
 {% highlight python %}
@@ -50,7 +53,7 @@ shots_dirk = np.random.binomial(n=1,p=0.9, size=5)
 
 
 ### Frequentist
-The first thing to note about the frequentist approach is how easy it is to implement, it just takes the following x lines to have `statsmodels` run a Welch test and give us the appropriate p-value.
+The first thing to note about the frequentist approach is how easy it is to implement, it just takes the following x lines to have `scipy` run a Welch test and give us the appropriate p-value.
 
 {% highlight python %}
 n_mc_samples = 10000
