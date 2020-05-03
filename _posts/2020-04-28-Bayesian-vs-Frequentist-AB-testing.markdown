@@ -23,17 +23,34 @@ Following scenario
 ### Frequentist solution
 Quick recap:
 - start with $H_0: \mu_d = \mu_s$
-- under $H_0: \overline{X}_d - \overline{X}_s \sim \mathcal{N}(0 ,\sigma)$
+- using CLT, we know that under $H_0: \overline{X}_d - \overline{X}_s \sim \mathcal{N}(0 ,\sigma)$
 
 - with $$ \sigma = \sqrt{ \frac{s^{2}_{d}}{N_d} + \frac{s^{2}_{s}}{N_s} }$$
 
+- Calculate t-statistic to see whether we can reject the null hypothesis
 ### Bayesian solution
 
-Brief reminder: in Bayesian inference we are interested in the posterior probability, which is $Pr(\mu_s,\mu_d\|data)$ and e.g. for Dirk's true shooting percentage is calculated as $Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$
+In Bayesian inference we directly deal with the posterior probability, which is $Pr(\mu_s,\mu_d\|data)$ and e.g. for Dirk's true shooting percentage is calculated as $Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$. $Pr(data\|\mu_d) we get directly from the data and the likelihood. In this case, the obvious choice for likelihood is binomial.$
 
-We know that the true shooting percentage needs to lie between 0 and 1 for either player, so choose the beta distribution for both, the prior and the likelihood. In the case of a beta distribution as prior, we know that the resulting posterior distribution is also a beta distribution and can actually be computed analytically. In general though, this is not the case, and one has to approximate the posterior numerically via MCMC sampling. 
+As regards the prior, we know that the true shooting percentage needs to lie between 0 and 1 for either player, so choose the beta distribution for the prior. 
 
-Once we have approximated the posterior distribution of both shooting percentages, we also have the distribution of their difference, which will help us make additional statistical statement over the difference between the two players' shooting ability.
+With this we can calculate the numerator of the posterior, and since the denominator is just a constant (which is easy to calculate in this toy example, but can often not be solved by analytical methods) we can approximate $Pr(\mu_d\|data)$ numerically by drawing samples from it via  MCMC sampling. 
+
+Once we have approximated the posterior distribution of both shooting percentages, we also have the distribution of the difference of their shooting percentage, with which we can directly make probabilistic statements about our hypothesis.
+
+## Both solutions in action
+### Generating some data
+
+{% highlight python %}
+import numpy as np
+np.random.seed(111)
+shots_shaq = np.random.binomial(n=1,p=0.5, size=100)
+shots_dirk = np.random.binomial(n=1,p=0.9, size=5)
+{% endhighlight %}
+
+
+### Frequentist
+The first thing to note about the frequentist approach is how easy it is to implement, it just takes the following x lines to have `statsmodels` run a Welch test and give us the appropriate p-value.
 
 {% highlight python %}
 n_mc_samples = 10000
