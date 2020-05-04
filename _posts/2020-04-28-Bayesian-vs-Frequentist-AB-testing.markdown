@@ -69,6 +69,31 @@ stats.ttest_ind(shots_dirk, shots_shaq, equal_var = False)
 This gives a t-statistic of 0.64 with an associated p-value 0.554 i.e. a statisticially _insignificant_ result.
 Let's see if the Bayesian approach can do any better.
 
+
+### Bayesian
+#### Choosing a prior
+The shooting percentage of a player is bound between 0 and 1. This makes the beta distribution the ideal candidate for our prior. If you watch a little bit of basketball, you also know that extreme values i.e. a shooting percentages close to 0 or 1 are rare. With this in mind, let's parameterise our beta distribution with $\alpha = 2$ and $\beta = 2$. This gives us the following prior distribution, which is relative uninformed (i.e. makes few assumptions) apart from the fact that extremes are less likely that values in the center of the distribution's support.
+
+
+{% highlight python %}
+alpha_prior, beta_prior = 2, 2
+
+fig, ax = plt.subplots()
+
+x = np.linspace(0, 1)
+prior = stats.beta(alpha_prior, beta_prior).pdf(x)
+plt.plot(x, prior, label="prior")
+plt.legend()
+ax.set(title="Prior distribution for Dirk and Shaq's true shooting percentage")
+{% endhighlight %}
+
+[Graph here]
+
+Of course, there are different ways we could have chosen the prior. First of all, if we do have prior information regarding Dirk and Shaq, we could have chosen different priors for the two (in this example we are assuming no prior knowledge specific to the players). Similarly, we could have used data on other NBA players to fit our prior (this is called empirical Bayes and you can read more about it in Robinsons great book here[link]).
+
+#### Specifying the likelihood and approximating the posterior
+Next we only need to specify our likelihood model as binomial as well as the number of samples we would like to draw from the posterior (we'll go with 10k for now), link the prior and the likelihood and we're ready to go. For convenience, we will also define the difference between the Dirk's and Shaq's posterior as its own deterministic distribution.
+
 {% highlight python %}
 n_mc_samples = 10000
 
@@ -87,8 +112,29 @@ with pm.Model() as shooting_pct_model:
     
     trace = pm.sample(n_mc_samples)
 
-posterior_samples = pm.trace_to_dataframe(trace)t
+posterior_samples = pm.trace_to_dataframe(trace)
 {% endhighlight %}
+
+#### Evaluating the result
+
+Once `pymc3` is done sampling the posterior distributions, we can get a pretty good idea of what's going on by just plotting the two posterior distributions as well as their difference:
+{% highlight python %}
+fig, (ax1, ax2) = plt.subplots(figsize=(12, 6), nrows=2)
+ax1.hist(posterior_samples.loc[1:1000,"shooting_pct_shaq"], alpha=0.5, label="Shaq")
+ax1.hist(posterior_samples.loc[1:1000,"shooting_pct_dirk"], alpha=0.5, label="Dirk")
+ax1.set(title="Dirk's and Shaq's posterior distributions")
+ax1.legend()
+
+ax2.hist(posterior_samples.loc[1:1000,"shooting_pct_diff"], alpha=0.5, label="difference")
+ax2.set(title="Difference between Dirk's and Shaq's posterior")
+ax2.legend()
+fig.tight_layout()
+
+{% endhighlight %}
+
+First of all, note that the point estimates for the shooting percentage difference from both mean (0.114) and median (0.11) of the distribution are lower than the frequentist point estimate of 0.16. This is because our prior gives higher probability to both shooting percentages being close to 0.5.
+But going beyond point estimates, we can now also answer questions like: What's the probability that Dirk is a better shooter (answer: 73.6%)?
+
 # Conclusion
 [(here)](https://github.com/matsmaiwald/cli_tools/blob/master/git-hist)
 
