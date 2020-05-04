@@ -33,7 +33,7 @@ The frequentist approach essentially consists of the two following steps:
 - Calculate t-statistic to see whether the probability that the observed difference was actually drawn from $\mathcal{N}(0 ,\sigma)$ is below a pre-specified percerntage cutoff such that we feel comfortable rejecting the null hypothesis.
 ### Bayesian approach
 
-In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. The posterior probability distribution of e.g. Dirk's true shooting percentag is defined $Pr(\mu_s,\mu_d\|data)$ and according to _Bayes' rule_ can be calculated as $Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$. $Pr(data\|\mu_d)$ we get directly from the data and the likelihood. In this case, the obvious choice for likelihood model is binomial.
+In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. The posterior probability distribution of e.g. Dirk's true shooting percentag is defined $Pr(\mu_s,\mu_d\|data)$ and according to _Bayes' rule_ can be calculated as $$Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$$. $Pr(data\|\mu_d)$ we get directly from the data and the likelihood. In this case, the obvious choice for likelihood model is binomial.
 
 As regards the prior, we know that the true shooting percentage needs to lie between 0 and 1 for either player, so choose the beta distribution for the prior. 
 
@@ -43,7 +43,8 @@ Once we have approximated the posterior distribution of both shooting percentage
 
 ## Both approaches in action
 ### Generating some data
-
+First, let's generate some data. Assuming that Shaq's and Dirk's true shooting percentages are 50% and 90% respectively, let's draw a 100 shot sample for Shaq and a 5 shot sample for Dirk.
+Below we have the python code as well as the generated samples. 
 {% highlight python %}
 import numpy as np
 np.random.seed(111)
@@ -51,9 +52,22 @@ shots_shaq = np.random.binomial(n=1,p=0.5, size=100)
 shots_dirk = np.random.binomial(n=1,p=0.9, size=5)
 {% endhighlight %}
 
+| Player | Total shots | Success | Miss | Shooting percentage | Variance |
+|--------|-------------|---------|------|---------------------|----------|
+| Shaq   | 100         | 44      | 56   | 0.44                | 0.246    |
+| Dirk   | 5           | 3       | 2    | 0.6                 | 0.24     |
+
 
 ### Frequentist
-The first thing to note about the frequentist approach is how easy it is to implement, it just takes the following x lines to have `scipy` run a Welch test and give us the appropriate p-value.
+The frequentist point estimate is simply $\overline{X}_d - \overline{X}_s = 0.16$.
+To see whether this difference is statistically significant, let's run a Welch test:
+{% highlight python %}
+from scipy import stats
+stats.ttest_ind(shots_dirk, shots_shaq, equal_var = False)
+{% endhighlight %}
+
+This gives a t-statistic of 0.64 with an associated p-value 0.554 i.e. a statisticially _insignificant_ result.
+Let's see if the Bayesian approach can do any better.
 
 {% highlight python %}
 n_mc_samples = 10000
@@ -77,3 +91,5 @@ posterior_samples = pm.trace_to_dataframe(trace)t
 {% endhighlight %}
 # Conclusion
 [(here)](https://github.com/matsmaiwald/cli_tools/blob/master/git-hist)
+
+The first thing to note about the frequentist approach is how easy it is to implement, it just takes the following x lines to have `scipy` run a Welch test and give us the appropriate p-value.
