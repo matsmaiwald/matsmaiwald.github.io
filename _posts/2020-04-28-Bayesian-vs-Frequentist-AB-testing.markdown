@@ -5,18 +5,15 @@ categories: misc
 use_math: true
 ---
 ## Why this post
-- confusion, many people still use frequentist
-- go through an example to see how Bayesian supersedes
+Given how easy it is to carry out bayesian statistical analysis, I am often struck by how many people, both in academia and industry, still rely on frequentist methods. In this post, I'll go through a cooked-up example, involving the comparison of two basketball free-throw percentages, two show that a) both, frequentist and bayesian approaches are very easy to carry out (at least for this example) and that the bayesian analysis provides a much richer and easier to interpret result.
 
 ## Dirk vs Shaq
-Following scenario
+To make the examples more fun, imagine the following scenario
 
-- don't know Shaq O'Neal nor Dirk Nowitzki
-- You have been watching Shaq for a while
-- Dirk comes in takes a couple of free throws
-- the two do a competition
-- Another bystander approaches you to take bets
-- Who do you bet on and how confident can you be? 
+- You have been watching a basketball player, call him Shaq, take 100 free-throws with mixed success 
+- Now a second player, call him Dirk, joins Shaq in shooting free-throws
+- After only a couple of Dirk's free-throws, Shaq and Dirk come over to ask you who you think the better free-throw shooter is
+- How do you decide, and how confident can you be?
 
 ## Bayesian vs Frequentist AB test: brief recap of the different approaches
 
@@ -42,11 +39,22 @@ With this we can calculate the numerator of the posterior, and since the denomin
 Once we have approximated the posterior distribution of both shooting percentages, we also have the distribution of the difference of their shooting percentage, with which we can directly make probabilistic statements such as _there is an x-percent probability that Dirk is a better free-throw shooter than Shaq_.
 
 ## Both approaches in action
+### Preliminaries
+To follow the code, you need to have a Python virtual with the following packages installed: `pymc3`, `scipy`, `numpy` and `matplotlib`.
+Let's start by importing all of them:
+
+{% highlight python %}
+
+import numpy as np
+from scipy import stats
+from matplotlib import pyplot as plt
+import pymc3 as pm
+
+{% endhighlight %}
 ### Generating some data
 First, let's generate some data. Assuming that Shaq's and Dirk's true shooting percentages are 50% and 90% respectively, let's draw a 100 shot sample for Shaq and a 5 shot sample for Dirk.
 Below we have the python code as well as the generated samples. 
 {% highlight python %}
-import numpy as np
 np.random.seed(111)
 shots_shaq = np.random.binomial(n=1,p=0.5, size=100)
 shots_dirk = np.random.binomial(n=1,p=0.9, size=5)
@@ -62,7 +70,6 @@ shots_dirk = np.random.binomial(n=1,p=0.9, size=5)
 The frequentist point estimate is simply $\overline{X}_d - \overline{X}_s = 0.16$.
 To see whether this difference is statistically significant, let's run a Welch test:
 {% highlight python %}
-from scipy import stats
 stats.ttest_ind(shots_dirk, shots_shaq, equal_var = False)
 {% endhighlight %}
 
@@ -87,7 +94,7 @@ plt.legend()
 ax.set(title="Prior distribution for Dirk and Shaq's true shooting percentage")
 {% endhighlight %}
 
-[Graph here]
+![Prior](/assets/plots/prior.png)
 
 Of course, there are different ways we could have chosen the prior. First of all, if we do have prior information regarding Dirk and Shaq, we could have chosen different priors for the two (in this example we are assuming no prior knowledge specific to the players). Similarly, we could have used data on other NBA players to fit our prior (this is called empirical Bayes and you can read more about it in Robinsons great book here[link]).
 
@@ -132,10 +139,10 @@ fig.tight_layout()
 
 {% endhighlight %}
 
+![Posteriors](/assets/plots/posteriors.png)
+
 First of all, note that the point estimates for the shooting percentage difference from both mean (0.114) and median (0.11) of the distribution are lower than the frequentist point estimate of 0.16. This is because our prior gives higher probability to both shooting percentages being close to 0.5.
 But going beyond point estimates, we can now also answer questions like: What's the probability that Dirk is a better shooter (answer: 73.6%)?
 
 # Conclusion
-[(here)](https://github.com/matsmaiwald/cli_tools/blob/master/git-hist)
-
-The first thing to note about the frequentist approach is how easy it is to implement, it just takes the following x lines to have `scipy` run a Welch test and give us the appropriate p-value.
+In this post, I worked through the frequentist and the bayesian approach of AB testing. Whereas the frequentist approach requires fewer lines of code, the bayesian approach gives a much richer result and is easier to interpret while still being a relative low-effort exercise.
