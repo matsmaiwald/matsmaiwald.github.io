@@ -5,7 +5,7 @@ categories: misc
 use_math: true
 ---
 ## Why this post
-Given how easy it is to carry out bayesian A/B or hypothesis testing, I am often struck by how many people, both in academia and industry, still rely on frequentist methods. In this post, I'll go through a cooked-up example, involving the comparison of two basketball free-throw percentages, two show that a) both, frequentist and bayesian approaches are very easy to carry out and that the bayesian analysis provides a much richer and easier to interpret result.
+Given how easy it is to carry out Bayesian A/B or hypothesis testing, I am often struck by how many people, both in academia and industry, still rely on frequentist methods. In this post, I'll go through a cooked-up example, involving the comparison of two basketball free-throw percentages and show that a) both, frequentist and Bayesian approaches are easy to carry out and that b) the Bayesian analysis provides a much richer result that is also easier to interpret.
 
 ## Dirk vs Shaq
 To make the numbers more fun, imagine the following scenario
@@ -21,16 +21,16 @@ To make the numbers more fun, imagine the following scenario
 The frequentist approach essentially consists of the two following steps:
 1. Get a point estimate of the difference between the two players' shooting ability. In our case it is simply the difference in the observed shooting percentage: $\overline{X}_d - \overline{X}_s$ 
 
-2. Figure out whether the difference in measured shooting percentage is large enough to dismiss the possibility that both shooting percentages are actually equal (our null hypothesis). 
+2. Figure out whether the difference in measured shooting percentage (normalised by its standard deviation) is large enough to dismiss the possibility that both shooting percentages are actually equal (our null hypothesis). 
 
-More formally this would be written as
-- $H_0: \mu_d = \mu_s$
-- using CLT, we know that under $H_0: \overline{X}_d - \overline{X}_s \sim \mathcal{N}(0 ,\sigma)$, with $$ \sigma = \sqrt{ \frac{s^{2}_{d}}{N_d} + \frac{s^{2}_{s}}{N_s} }$$
+More formally,
+- we first define the null hypothesis as $H_0: \mu_d = \mu_s$
+- using the _Central Limit Theorem_, we know that under $H_0$ the following large sample approximation holds: $$ \overline{X}_d - \overline{X}_s \stackrel{H_0}{\sim} \mathcal{N}(0 ,\sigma)$$, with $$ \sigma = \sqrt{ \frac{s^{2}_{d}}{N_d} + \frac{s^{2}_{s}}{N_s} }$$. In order to not rely on the _Central Limit Theorem's_ asymptotic result (which requires $N$ to be large), in practice we use the typical _student-t distribution_, where the degrees of freedom are determined by the _Welch–Satterthwaite equation_. 
 
-- Calculate t-statistic to see whether the probability that the observed difference was actually drawn from $\mathcal{N}(0 ,\sigma)$ is below a pre-specified percerntage cutoff (e.g. 1%) such that we feel comfortable rejecting the null hypothesis.
+- Calculate the t-statistic as $$t = \frac{\overline{X}_d - \overline{X}_s}{\sigma} $$ to see whether the probability that the observed difference was actually drawn from a zero-centered _stutent-t distribution_ is below a pre-specified percerntage cutoff (e.g. 1%) such that we can reject the null hypothesis.
 ### Bayesian approach
 
-In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. According to _Bayes' rule_, the posterior probability distribution of e.g. Dirk's true shooting percentag $Pr(\mu_s,\mu_d\|data)$ can be calculated as $$Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$$. $Pr(data\|\mu_d)$ we get directly from the data and the likelihood. In this case, the obvious choice for likelihood model is binomial.
+In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. According to _Bayes' rule_, the posterior probability distribution of e.g. Dirk's true shooting percentag $Pr(\mu_s,\mu_d\|data)$ can be calculated as $$Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$$. $Pr(data\|\mu_d)$ we get directly from the data and the likelihood. In this case, the obvious choice for the likelihood is binomial.
 
 As regards the prior, we know that the true shooting percentage needs to lie between 0 and 1 for either player, so we'll choose the beta distribution for the prior. 
 
@@ -148,4 +148,4 @@ First of all, note that the point estimates for the shooting percentage differen
 But going beyond point estimates, we can now also answer questions like: What's the probability that Dirk is a better shooter (answer: 73.6%), given us way more to work with than the frequentist approach.
 
 # Conclusion
-In this post, I worked through the frequentist and the bayesian approach of AB testing. Whereas the frequentist approach requires fewer lines of code, the bayesian approach gives a much richer result and is easier to interpret while still being a relative low-effort exercise.
+In this post, I worked through the frequentist and the Bayesian approach of AB testing. Whereas the frequentist approach requires fewer lines of code, the Bayesian approach gives a much richer result and is easier to interpret while still being a relative low-effort exercise.
