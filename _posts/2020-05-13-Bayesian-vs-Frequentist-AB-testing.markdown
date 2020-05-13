@@ -74,7 +74,7 @@ The generated samples will look like this:
 
 ### Frequentist
 The frequentist point estimate is simply $\overline{X}_d - \overline{X}_s = 0.16$.
-To see whether this difference is statistically significant, let's run a **Welch test** (which a generalised version of a standard t-test):
+To see whether this difference is statistically significant, let's run a **Welch test** (which is a generalised version of a standard t-test):
 {% highlight python %}
 stats.ttest_ind(shots_dirk, shots_shaq, equal_var = False)
 {% endhighlight %}
@@ -103,7 +103,7 @@ ax.set(title="Prior distribution for Dirk and Shaq's true shooting percentage")
 
 ![Prior](/assets/plots/prior.png)
 
-Of course, there are different ways we could have chosen the prior. First of all, if we had prior information regarding Dirk and Shaq, we could have chosen different priors for the two (in this example we are assuming no prior knowledge specific to the players). Similarly, we could have used data on other NBA players to fit our prior (you can read more about in an excellent blog post by David Robinson [(here)](http://varianceexplained.org/r/empirical_bayes_baseball/).
+Of course, there are different ways we could have chosen the prior. First of all, if we had prior information regarding Dirk and Shaq, we could have chosen different priors for the two (in this example we are assuming no prior knowledge specific to the players). Similarly, we could have used data on other NBA players to fit our prior (you can read more about in an excellent blog post by David Robinson (see reference at the end).
 
 #### Specifying the likelihood and approximating the posterior
 With our prior at hand, we only need to specify our likelihood model as binomial, set the number of samples we would like to draw from the posterior (we'll go with 10k for now), link the prior and the likelihood and `pymc3` will do the rest for us. For convenience, we will also define the difference between the Dirk's and Shaq's posterior as its own deterministic distribution.
@@ -151,5 +151,11 @@ fig.tight_layout()
 First of all, note that the point estimates for the shooting percentage difference from both mean (0.114) and median (0.11) of the posterior distribution are lower than the frequentist point estimate of 0.16. This is because our prior gives higher probability to both shooting percentages being close to 0.5.
 But going beyond point estimates, we now **have the full distribution of the difference in shooting percentage of Dirk and Shaq**. This allows us to answer question regarding any quantile of the difference but also allows us to assign a probability to the case in which Dirk is a better freethrow shooter than Shaq: 73.6% of the posterior's mass lie to the right of the zero-mark.
 
-# Conclusion
+## Conclusion
 In this post, I worked through the frequentist and the Bayesian approach of AB testing. Whereas the frequentist approach requires fewer lines of code, the Bayesian approach gives a much richer result and is easier to interpret while still being a relative low-effort exercise.
+
+
+## Further Reading
+- David Robinson's [blog post](http://varianceexplained.org/r/empirical_bayes_baseball/) about how to empirically estiamte priors in the context of Baseball data.
+- My former colleague Mehrdad Baghery's [blog post](https://mbaghery.github.io/2020/02/28/bayesian-ab-testing.html) with more details on AB testing in the Bayesian framework.
+- The general comparison of Bayesian and Frequentist approaches in [this class note](https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading20.pdf) of MIT's intro to probability and statistics class.
