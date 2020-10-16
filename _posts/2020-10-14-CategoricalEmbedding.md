@@ -6,12 +6,11 @@ use_math: true
 ---
 
 
-In this post, I am going to look at how categorical data can be encoded using embeddings. Embeddings are a superior encoding technique to e.g. one-hot-encoding, because they can capture the same information with fewer parameters.
+In this post, I am going to look at how categorical data can be encoded using embeddings. 
 
-# What are embeddings in tabular data
+# What are embeddings for categorical variables and why are they useful
+Similar to word embeddings, embeddings of categorical variables are encodings that map each category which a given variable can take, to a vector of fixed size. E.g. the values "apple" and "orange" of a variable "food" might be mapped to the vectors [1, 0.5] and [0, 2]. Categorical embeddings are particularly useful for categorical variables with high _cardinality_ -- i.e. variables that can take on many different categories -- because they reduce the dimension of the input variable and, compared to e.g. one-hot-encoding, can reduce the number of parameters that have to be estimated. Once obtained, categorical embeddings can also be re-used in different settings if the categorical variable is thought to affect the outcome variable in a similar manner to the setting it was trained in.
 
-- just good old Linear/affine transformations that map a category into n-dimensions
-- give an example
 
 # How are they obtained?
 
@@ -21,9 +20,3 @@ In this post, I am going to look at how categorical data can be encoded using em
 
 - model for toy data
 - show how embeddings match underlying model
-
-# Comparison to OHE
-
-- embeddings are particularly cool if you have categorical variables with high cardinality and the variables interact with other features --> dimensionality reduction
-- supervised grouping of data
-- Once trained, can re-use them in new contexts
