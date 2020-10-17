@@ -27,4 +27,6 @@ The optimal embedding size will depend on the problem at hand, but a good rule o
 
 
 ## Reference
-A blog post by Rachel Thomas of fastai on using categorical variables in neural networks for tabular data: https://www.fast.ai/2018/04/29/categorical-embeddings/ 
+- A blog post by Rachel Thomas of fastai on using categorical variables in neural networks for tabular data: [https://www.fast.ai/2018/04/29/categorical-embeddings/](https://www.fast.ai/2018/04/29/categorical-embeddings/)
+
+- A paper that explains the approach of Kaggle contestants who used categorical embeddings to finish 3rd in the Kaggle Rossmann competition: [https://arxiv.org/pdf/1604.06737v1.pdf](https://arxiv.org/pdf/1604.06737v1.pdf)
