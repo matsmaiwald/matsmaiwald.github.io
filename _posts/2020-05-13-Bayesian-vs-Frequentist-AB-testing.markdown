@@ -21,24 +21,24 @@ First let's start with a quick recap of the theoretical underpinnings of the two
 
 ### Frequentist approach
 On an intuitive level, the frequentist approach consists of the two following steps:
-1. Get a point estimate of the difference between the two players' shooting ability. In our example this is simply the difference in the observed shooting percentage: $\overline{X}_d - \overline{X}_s$ 
+1. Get a point estimate of the difference between the two players' shooting ability. In our example this is simply the difference in the observed shooting percentage: $$\overline{X}_d - \overline{X}_s$$ 
 
 2. _Figure out whether the difference in observed shooting percentage is large enough relative to its standard deviation_ to dismiss the possibility that both shooting percentages are actually equal (which is the null hypothesis). 
 
 More formally, the steps are:
-- define the null hypothesis as $H_0: \mu_d = \mu_s$
-- using the _Central Limit Theorem_, we know that under $H_0$ the following large sample approximation holds: $$ \overline{X}_d - \overline{X}_s \stackrel{H_0}{\sim} \mathcal{N}(0 ,\sigma)$$, with $$ \sigma = \sqrt{ \frac{s^{2}_{d}}{N_d} + \frac{s^{2}_{s}}{N_s} }$$. In order to not rely on the _Central Limit Theorem's_ asymptotic result (which requires $N$ to be large), in practice we use the typical _student-t distribution_, where the degrees of freedom are determined by the _Welch–Satterthwaite equation_. 
+- define the null hypothesis as $$H_0: \mu_d = \mu_s$$
+- using the _Central Limit Theorem_, we know that under $$H_0$$ the following large sample approximation holds: $$ \overline{X}_d - \overline{X}_s \stackrel{H_0}{\sim} \mathcal{N}(0 ,\sigma)$$, with $$ \sigma = \sqrt{ \frac{s^{2}_{d}}{N_d} + \frac{s^{2}_{s}}{N_s} }$$. In order to not rely on the _Central Limit Theorem's_ asymptotic result (which requires $$N$$ to be large), in practice we use the typical _student-t distribution_, where the degrees of freedom are determined by the _Welch–Satterthwaite equation_. 
 
 - Calculate the t-statistic as $$t = \frac{\overline{X}_d - \overline{X}_s}{\sigma} $$ to see whether the probability that the observed difference was actually drawn from a zero-centered _stutent-t distribution_ is below a pre-specified percerntage cutoff (e.g. 1%) such that we can reject the null hypothesis.
 
 
 ### Bayesian approach
 
-In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. According to _Bayes' rule_, the posterior probability distribution of e.g. Dirk's true shooting percentag $Pr(\mu_s,\mu_d\|data)$ can be calculated as $$Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$$. $Pr(data\|\mu_d)$ we get directly from the data and the likelihood. In this case, the obvious choice for the likelihood is binomial.
+In Bayesian inference we will directly deal with the posterior probability distribution of the difference in the two players' shooting percentage. We will approximate the posterior distribution of each player's shooting percentage first and then look at the distribution of the difference of the two. According to _Bayes' rule_, the posterior probability distribution of e.g. Dirk's true shooting percentag $$Pr(\mu_s,\mu_d\|data)$$ can be calculated as $$Pr(\mu_d\|data) = \frac{ Pr(data\|\mu_d) * Pr(\mu_d) }{Pr(data)}$$. $$Pr(data\|\mu_d)$$ we get directly from the data and the likelihood. In this case, the obvious choice for the likelihood is binomial.
 
 As regards the prior, we know that the true shooting percentage needs to lie between 0 and 1 for either player, so we'll choose the beta distribution for the prior. 
 
-With this we can calculate the numerator of the posterior, and since the denominator is just a constant (which is easy to calculate in this toy example, but often cannot be solved by analytical methods) we can approximate $Pr(\mu_d\|data)$ numerically by drawing samples from it via _Markov Chain Monte Carlo_ (MCMC) sampling. 
+With this we can calculate the numerator of the posterior, and since the denominator is just a constant (which is easy to calculate in this toy example, but often cannot be solved by analytical methods) we can approximate $$Pr(\mu_d\|data)$$ numerically by drawing samples from it via _Markov Chain Monte Carlo_ (MCMC) sampling. 
 
 Once we have approximated the posterior distribution of both shooting percentages, we also have the distribution of the difference of their shooting percentage, with which we can directly make probabilistic statements such as _there is an x-percent probability that Dirk is a better free-throw shooter than Shaq_.
 
@@ -73,7 +73,7 @@ The generated samples will look like this:
 
 
 ### Frequentist
-The frequentist point estimate is simply $\overline{X}_d - \overline{X}_s = 0.16$.
+The frequentist point estimate is simply $$\overline{X}_d - \overline{X}_s = 0.16$$.
 To see whether this difference is statistically significant, let's run a **Welch test** (which is a generalised version of a standard t-test):
 {% highlight python %}
 stats.ttest_ind(shots_dirk, shots_shaq, equal_var = False)
@@ -86,7 +86,7 @@ Let's see if the Bayesian approach can do any better.
 
 ### Bayesian
 #### Choosing a prior
-As the shooting percentage of a player is bound between 0 and 1, the beta distribution is an ideal candidate for our prior. If you watch a little bit of basketball, you also know that extreme values i.e. a shooting percentages close to 0 or 1 are rare. With this in mind, let's parameterise our beta distribution with $\alpha = 2$ and $\beta = 2$. This gives us the following prior distribution, which is relative uninformed (i.e. makes few assumptions) apart from the fact that extremes are less likely that values in the center of the distribution's support.
+As the shooting percentage of a player is bound between 0 and 1, the beta distribution is an ideal candidate for our prior. If you watch a little bit of basketball, you also know that extreme values i.e. a shooting percentages close to 0 or 1 are rare. With this in mind, let's parameterise our beta distribution with $$\alpha = 2$$ and $$\beta = 2$$. This gives us the following prior distribution, which is relative uninformed (i.e. makes few assumptions) apart from the fact that extremes are less likely that values in the center of the distribution's support.
 
 
 {% highlight python %}
