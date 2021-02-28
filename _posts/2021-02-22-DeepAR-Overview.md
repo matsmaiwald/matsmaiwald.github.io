@@ -50,6 +50,9 @@ The two main groups of parameters that need to be trained are
 
 ## Training
 
+Given a prediction and context length (the latter is a hyperparamter and refers to the encoding length i.e. the number of periods which the NN gets rolled out for, before making its first prediction),
+
+during training, we repeatedly pick subsamples from the N time series with a window length equal to $$ prediction length + context length $$ from training data.  EXPLAIN HOW FIT AND UPDATE MODEL
 
 ## Prediction
 
