@@ -25,10 +25,31 @@ Data $$\rightarrow $$ Neural Network $$ \rightarrow $$ parameters of pdf for $$ 
 
 For the parametric form of the pdf we will assume a normal distribution. The more challenging part will be wrapping our head around the structure of the Neural Netowrk (NN) which is where most of the magic happens.
 
+## NN high-level overview
+The neural network that maps the data to the probability distribution of the target variable is _autoregressive_ (as it takes the previous periods target variable as input), _recurrent_ (as it takes it own hidden state from the previous period as input) neural network. It is made up of stacked LSTM layers (to allow signal efficiently travel through the unrolled RNN). The following graphic shows the data flow through the network at training (left) and prediction time (right).
 
-## Data Flow
+![Graph1](/assets/graphs/DeepARNN.jpeg)
+*Graph 1*
+
+## Features and parameters of the model
+
+#### Features
+Other than the target variable and hidden state from the previous period, the NN takes a _covariate vector_ $$x_{i,t}$$ as input. This vector will typically contain the following features:
+
+- lagged values of the target variable
+- day of week, day of month and day of year
+- time-variant or invariant real-valued variables associated with 
+- embeddings of any time-invariant categorical variables associated with the time series
+
+#### Parameters
+
+The two main groups of parameters that need to be trained are
+
+1. Parameters of the NN, including those governing the embedding of categorical variables
+2. Parameters of the function that maps the output of the NN to the parameters of the target variable's likelihood function
 
 ## Training
+
 
 ## Prediction
 
