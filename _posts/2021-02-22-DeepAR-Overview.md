@@ -52,8 +52,13 @@ The two main groups of parameters that need to be trained are
 
 Given a prediction and context length (the latter is a hyperparamter and refers to the encoding length i.e. the number of periods which the NN gets rolled out for, before making its first prediction),
 
-during training, we repeatedly pick subsamples from the N time series with a window length equal to $$ prediction length + context length $$ from training data.  EXPLAIN HOW FIT AND UPDATE MODEL
+we train the model on samples from the training data. Specifically, for a given time series, we uniformly sample a window of a length that equals the sum of prediction and context length. We start by calculating the hidden state of the NN for the first time period in the sampled window (initialising $$ z $$ and $$ x $$ as zero) and then together with the covariates and target values of the rest of the time window, sequentially calculate the NN's hidden state for each period in the sampled window. Using the log-likelihood as the loss function, calculate the gradient of the loss function and use the gradient to update the NN's parameters. Note that we typically create mini-batches of say, size 100, average the gradient and update only once per 100 time series.
+
+Questions: 
+
+- use ancestral sampling or real data during training? 
+- How do we calculate the first hidden state during any training period? 
+- Explain solution to cold start problem
 
 ## Prediction
-
-## Understanding the NN
+Once the model is trained, we use the most recent available target value as well the covariates for the next _prediction length_ days to obtain forecasts, by sampling from the probility function which the NN outputs. Mention ancestral sampling.
