@@ -74,3 +74,10 @@ Questions:
 
 ## Prediction
 Once the model is trained, we use the most recent available target value as well the covariates for the next _prediction length_ days to obtain forecasts, by sampling from the probility function which the NN outputs. Mention ancestral sampling.
+
+
+## References
+
+Original DeepAR paper: https://www.sciencedirect.com/science/article/pii/S0169207019301888
+Blog post with helpful visualisations: https://www.telesens.co/2019/06/08/time-series-prediction/
+Api docs for gluonts implementation: https://ts.gluon.ai/api/gluonts/gluonts.model.deepar.html
