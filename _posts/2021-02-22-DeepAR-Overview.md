@@ -45,12 +45,24 @@ Other than the target variable and hidden state from the previous period, the NN
 
 The two main groups of parameters that need to be trained are
 
-1. Parameters of the NN, including those governing the embedding of categorical variables
+1. $$ \theta $$, the parameters of the NN, including those governing the embedding of categorical variables
 2. Parameters of the function that maps the output of the NN to the parameters of the target variable's likelihood function
 
 ## Training
 
-Given a prediction and context length (the latter is a hyperparamter and refers to the encoding length i.e. the number of periods which the NN gets rolled out for, before making its first prediction),
+Given a context length $$ t_0 $$ and a prediction length $$ T-t_0 $$, where the context length is a hyperparamter and refers to the length of the encoder i.e. the number of periods which the NN gets rolled out for, before making its first prediction, model training looks as follows:
+
+In a given batch, sample through a new permutation of the time series and
+1. given a time series, sample a window of length $$ T $$ to obtain $$ \{ \boldsymbol{z}_{i,{1:T}} \} $$ and $$ \{ \boldsymbol{x}_{i,{1:T}} \} $$
+2. for $$ t $$ in $$ 1:T $$: 
+  obtain the target prediction $$ \widetilde{z}_{i,t} $$ and hidden state $$ \boldsymbol{h}_{i,t} $$ from the NN, using as inputs $$ z_{i, t-1} $$, 
+  $$ h_{i, t-1} $$ and $$ x_{i,t} $$, where $$ h_{i,0} $$ and $$ z_{i,0} $$ are initialised to zero.
+3. Use $$ \{ \widetilde{z}_{t_0,T} \} $$ i.e. those predictions that fall into the prediction range, to compute
+  $$ \mathcal{L} = \sum\limits_{i=1}^N \sum\limits_{t=t_0}^T log  p(z_{i,t}) $$
+
+
+
+
 
 we train the model on samples from the training data. Specifically, for a given time series, we uniformly sample a window of a length that equals the sum of prediction and context length. We start by calculating the hidden state of the NN for the first time period in the sampled window (initialising $$ z $$ and $$ x $$ as zero) and then together with the covariates and target values of the rest of the time window, sequentially calculate the NN's hidden state for each period in the sampled window. Using the log-likelihood as the loss function, calculate the gradient of the loss function and use the gradient to update the NN's parameters. Note that we typically create mini-batches of say, size 100, average the gradient and update only once per 100 time series.
 
