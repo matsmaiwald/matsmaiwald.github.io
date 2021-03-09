@@ -43,22 +43,25 @@ Other than the target variable and hidden state from the previous period, the NN
 
 #### Parameters
 
-The two main groups of parameters that need to be trained are
+Let $$ \Theta $$ denote the set of parameters to be learned. $$ \Theta $$ is made up of 
 
-1. $$ \theta $$, the parameters of the NN, including those governing the embedding of categorical variables
-2. Parameters of the function that maps the output of the NN to the parameters of the target variable's likelihood function
+1. the parameters of the NN, $$ h(\cdot) $$ , including those governing the embedding of categorical variables
+2. $$ \theta $$, the parameters of the function that maps the output of the NN to the parameters of the target variable's likelihood function
 
 ## Training
 
 Given a context length $$ t_0 $$ and a prediction length $$ T-t_0 $$, where the context length is a hyperparamter and refers to the length of the encoder i.e. the number of periods which the NN gets rolled out for, before making its first prediction, model training looks as follows:
 
-In a given batch, sample through a new permutation of the time series and
-1. given a time series, sample a window of length $$ T $$ to obtain $$ \{ \boldsymbol{z}_{i,{1:T}} \} $$ and $$ \{ \boldsymbol{x}_{i,{1:T}} \} $$
-2. for $$ t $$ in $$ 1:T $$: 
-  obtain the target prediction $$ \widetilde{z}_{i,t} $$ and hidden state $$ \boldsymbol{h}_{i,t} $$ from the NN, using as inputs $$ z_{i, t-1} $$, 
+Given the $$j$$-th batch of time series
+1. 
+  - sample a window of length $$ T $$ to obtain $$ \{ \boldsymbol{z}_{i,{1:T}} \} $$ and $$ \{ \boldsymbol{x}_{i,{1:T}} \} $$
+  - given the current parameter values $$ \Theta_j $$: 
+  obtain the target prediction $$ \widetilde{z}_{i,t} $$ and hidden state $$ \boldsymbol{h}_{i,t} $$ from the NN for $$ t $$ in $$ 1:T $$, using as inputs $$ z_{i, t-1} $$, 
   $$ h_{i, t-1} $$ and $$ x_{i,t} $$, where $$ h_{i,0} $$ and $$ z_{i,0} $$ are initialised to zero.
-3. Use $$ \{ \widetilde{z}_{t_0,T} \} $$ i.e. those predictions that fall into the prediction range, to compute
-  $$ \mathcal{L} = \sum\limits_{i=1}^N \sum\limits_{t=t_0}^T log  p(z_{i,t}) $$
+  - retain $$ \{ \widetilde{z}_{t_0,T} \} $$ i.e. those predictions that fall into the prediction range
+3. Compute the loss for this batch as
+  $$ \mathcal{L} = \sum\limits_{i=1}^N \sum\limits_{t=t_0}^T \log  p(z_{i,t} | \Theta_j) $$
+4. Update $$ \Theta_{j+1} = \Theta_j - \alpha \frac{ \partial \mathcal{L}(\Theta) }{ \partial \Theta} $$
 
 
 
