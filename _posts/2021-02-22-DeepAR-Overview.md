@@ -61,7 +61,20 @@ Given the $$j$$-th batch of time series
   - retain $$ \{ \widetilde{z}_{t_0,T} \} $$ i.e. those predictions that fall into the prediction range
 3. Compute the loss for this batch as
   $$ \mathcal{L} = \sum\limits_{i=1}^N \sum\limits_{t=t_0}^T \log  p(z_{i,t} | \Theta_j) $$
-4. Update $$ \Theta_{j+1} = \Theta_j - \alpha \frac{ \partial \mathcal{L}(\Theta) }{ \partial \Theta} $$
+4. Update parameters: $$ \Theta_{j+1} = \Theta_j - \alpha \frac{ \partial \mathcal{L}(\Theta) }{ \partial \Theta} $$
+
+
+## Prediction
+
+1. Given a time series which we want to obtain predictions for, as well as its covatiates, filter to the $$ k $$ most recent observations, where $$ k $$ is the context length and denote the result as $$ \{z_{i,t}, x_{i,t} \}_{t=0}^{t_0-1} $$.
+
+2. For $$ t $$ in $$ [0,t_{0-1}] $$:
+  Calculate $$ h_{i,t} $$
+
+3. For $$ t $$ in $$ [t_0, T] $$, where $$ T-t_0 $$ equals the prediction length,
+  Calculate $$ \widetilde{z}_{i,t} $$
+
+4. Repeat step 4) until as many sample predictions as desired are obtained.
 
 
 
@@ -87,8 +100,6 @@ Questions:
 - How do we calculate the first hidden state during any training period? 
 - Explain solution to cold start problem
 
-## Prediction
-Once the model is trained, we use the most recent available target value as well the covariates for the next _prediction length_ days to obtain forecasts, by sampling from the probility function which the NN outputs. Mention ancestral sampling.
 
 
 ## References
