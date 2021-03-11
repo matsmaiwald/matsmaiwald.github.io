@@ -9,24 +9,26 @@ In this post, I wanna give a brief overview of the DeepAR forecasting model.
 
 ## Objective
 
-Letting $$ z_{i,t} $$ denote the value of time series $$ i $$ in period $$ t $$, our aim is to obtain a probabilistic forecast for a set of $$ N $$ time series and for $$ T - t_0 $$ periods ahead, where $$ t_0 $$ and $$ T $$ denote the first and last period for which want a forecast. 
+Letting $$ z_{i,t} $$ denote the value of a time series $$ i $$ in period $$ t $$, our aim is to obtain a probabilistic forecast for a set of $$ N $$ time series and for $$ T - t_0 $$ periods ahead, where $$ t_0 $$ and $$ T $$ denote the first and last period for which want a forecast. 
 So given the historical realisations of the time series 
 $$\{\boldsymbol{z}_{i,1:t_0-1}\}_{i=1, ..., N}$$, 
 where $$[z_{i, 1}, z_{i, 2}, ... , z_{i,t_0-1}] := \boldsymbol{z}_{i, 1:t_0-1} $$, as well as a past and future observations of a (potentially time series specific) vector of covariates $$ \boldsymbol{x}_{i,t} $$,
 we want to obtain $$P(\boldsymbol{z}_{i,t_0:T}|\boldsymbol{z}_{i,1:t_{0-1}}, x_{i,1:T}) $$ i.e. a probability distribution for the value of each time series for each of the future periods from $$t_0$$ up to $$T$$.
-Note that is assumed that we know the values of the covariate vector for all future periods which puts an important
+
+
+Note that is assumed that we know the values of the covariate vector for all future periods. This puts an important
 limitation on the kinds of variables we can use as covariates.
 
-## High-level modelling approach
+## Modelling approach
 
-Let's look at the case where our target variable can take the value any real number (check out the original paper for the count data case). Assuming that $$ z_{i,t} $$ is real-valued, the high-level modelling approach will be to estimate the following mapping
+Assuming that our target variable $$ z_{i,t} $$ can take any value on the real line (check out the original paper for the count data case), the high-level modelling approach will be to estimate the following mapping
 
 _Data_ $$\rightarrow $$ _Neural Network_ $$ \rightarrow $$ _parameters of pdf_ for $$ z_{i,t} $$.
 
-For the parametric form of the pdf we will assume a normal distribution. The more challenging part will be wrapping our head around the structure of the Neural Netowrk (NN) which is where most of the magic happens.
+For the parametric form of the pdf we can assume e.g. normal distribution. So far, so good. Let's now look at the Neural Netowrk (NN) which is where most of the magic will happen.
 
-## NN high-level overview
-The neural network that maps the data to the probability distribution of the target variable is _autoregressive_ (as it takes the previous periods target variable as input), _recurrent_ (as it takes it own hidden state from the previous period as input) neural network. It is made up of stacked LSTM layers (to allow signal efficiently travel through the unrolled RNN). The following graphic shows the data flow through the network at training (left) and prediction time (right).
+## Neural Network architecture
+The neural network that maps the data to the probability distribution of the target variable is _autoregressive_ (it takes the target variable from the previous period as input) and _recurrent_ (it takes it own hidden state from the previous period as input) neural network. It is made up of stacked LSTM layers (to allow information to efficiently travel through the unrolled RNN). The following graphic shows the data flow through the network at training (left) and prediction time (right).
 
 ![Graph1](/assets/graphs/DeepARNN.jpeg)
 *Graph 1*
@@ -39,7 +41,7 @@ Other than the target variable and hidden state from the previous period, the NN
 - lagged values of the target variable
 - day of week, day of month and day of year
 - time-variant or invariant real-valued variables associated with 
-- embeddings of any time-invariant categorical variables associated with the time series
+- embeddings (learned as part of training) of any time-invariant categorical variables associated with the time series
 
 #### Parameters
 
@@ -49,8 +51,9 @@ Let $$ \Theta $$ denote the set of parameters to be learned. $$ \Theta $$ is mad
 2. $$ \theta $$, the parameters of the function that maps the output of the NN to the parameters of the target variable's likelihood function
 
 ## Training
+To understand how we can train the model and get predictions from it, it will be helpful to define the concept of _context length_. Because the NN is _recurrent_, whenever we want to make a prediction for e.g. $$ t_0$$ we need the hidden state given by the NN for the previous period $$ t_{0-1} $$. The _context length_ determines, how many periods from $$ t_0 $$ we go backwards to "unroll" the NN. Because the NN also takes as input the target variable from the previous period, a context length of $$ k $$ allows the NN to learn a highly non-linear mapping that is dependent on each individual target value in the last $$ k $$ periods. This is in addition to the target values of past periods captured in the vector of covariates $$ \boldsymbol{x} $$ .
 
-Given a context length $$ t_0 $$ and a prediction length $$ T-t_0 $$, where the context length is a hyperparamter and refers to the length of the encoder i.e. the number of periods which the NN gets rolled out for, before making its first prediction, model training looks as follows:
+Given a context length $$ k $$ and a prediction length $$ T-k $$, we sample batches of times series (each time series will be sampled multiple times overall) and train the model as follows:
 
 Given the $$j$$-th batch of time series
 1. 
@@ -78,7 +81,7 @@ Given the $$j$$-th batch of time series
 
 
 
-
+<!-- 
 
 we train the model on samples from the training data. Specifically, for a given time series, we uniformly sample a window of a length that equals the sum of prediction and context length. We start by calculating the hidden state of the NN for the first time period in the sampled window (initialising $$ z $$ and $$ x $$ as zero) and then together with the covariates and target values of the rest of the time window, sequentially calculate the NN's hidden state for each period in the sampled window. Using the log-likelihood as the loss function, calculate the gradient of the loss function and use the gradient to update the NN's parameters. Note that we typically create mini-batches of say, size 100, average the gradient and update only once per 100 time series.
 
@@ -96,9 +99,7 @@ Given encoder length $$ l $$ and prediction length $$ T-t_0 $$
 
 Questions: 
 
-- use ancestral sampling or real data during training? 
-- How do we calculate the first hidden state during any training period? 
-- Explain solution to cold start problem
+- How do we calculate the first hidden state during any training period?  -->
 
 
 
