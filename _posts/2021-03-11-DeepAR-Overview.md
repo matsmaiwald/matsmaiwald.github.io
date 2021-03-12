@@ -86,6 +86,6 @@ Given the $$j$$-th batch of time series
 
 ## References
 
-Original DeepAR paper: [https://www.sciencedirect.com/science/article/pii/S0169207019301888](https://www.sciencedirect.com/science/article/pii/S0169207019301888)
-Blog post with helpful visualisations of the model architecture: [https://www.telesens.co/2019/06/08/time-series-prediction/](https://www.telesens.co/2019/06/08/time-series-prediction/)
-Api docs for the gluonts implementation: [https://ts.gluon.ai/api/gluonts/gluonts.model.deepar.html](https://ts.gluon.ai/api/gluonts/gluonts.model.deepar.html)
+- Original DeepAR paper: [https://www.sciencedirect.com/science/article/pii/S0169207019301888](https://www.sciencedirect.com/science/article/pii/S0169207019301888)
+- Blog post with helpful visualisations of the model architecture: [https://www.telesens.co/2019/06/08/time-series-prediction/](https://www.telesens.co/2019/06/08/time-series-prediction/)
+- Api docs for the gluonts implementation: [https://ts.gluon.ai/api/gluonts/gluonts.model.deepar.html](https://ts.gluon.ai/api/gluonts/gluonts.model.deepar.html)
