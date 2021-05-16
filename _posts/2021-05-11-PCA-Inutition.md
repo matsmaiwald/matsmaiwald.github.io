@@ -32,7 +32,7 @@ $$ C_Y = \frac{1}{N} YY^T =  \frac{1}{N} (PX)(PX)^T = P (\frac{1}{N} XX^T) P^T =
 
 If we now substitute E containting the eigenvectors of $$C_X$$ for P, and use the fact that the inverse of an orthogonal matrix (in our case the matrix of eigenvectors) equals its transpose, we can see that $$C_Y$$, the variance covariance of the transformed data will be diagonal:
 
-$$ C_Y = PC_XP^T = E^TC_XE = E^(-1)C_XE = D $$, where the last equality follws straight from the definition of an eigenvector.
+$$ C_Y = PC_XP^T = E^TC_XE = E^{(-1)}C_XE = D $$, where the last equality follws straight from the definition of an eigenvector.
 
 This then means, that all we have to do to carry out PCA is find the eigenvectors of the variance covariance matrix of our data to get matrix $$E$$ and then post-multiply our data matrix by it. If we want to only keep those principal components with the largest explanatory power (as far as variance in our original data is concerned) then we can discard $$ x $$ unwanted eigenvectors, making E a non-square matrix with dimentions $$k$$ times $$k-x$$ transforming our data into $$k-x$$ principal components thereby reducing the dimensionality of our data. 
 
