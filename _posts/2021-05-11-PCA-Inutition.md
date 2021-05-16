@@ -39,13 +39,17 @@ This then means, that all we have to do to carry out PCA is find the eigenvector
 # Interpreting PCA
 There are two ways that I like to interprete what's going on in PCA. You can think of it either as a transformation of the data to its eigenbasis or as a projection of the data onto its axes of largest variance. Let's look at both in turn.
 
+If we think of matrices as describing linear transformations, then you can think of PCA as just moving around our data points in such a way that the transformed data has the properties that we desire. As an example in the 2D case, look at the original and transformed data on the left and right below. 
+
+![Graph1](/assets/graphs/orig_data_w_eig_vectors.png)
+![Graph2](/assets/graphs/transformed_data.png)
+
+Explain how i and j basis vectors are moved.
 
 
-1. Get scalar projections of data on each eigenvector.
-2. To visualise, get vector projection by multiplying by vector.
+In terms of projections, what's happening when we post-multiply our data by $$E$$ is that we get the _scalar projections_ of our data on each eigenvector. This corresponds to the length of the projection of each data point onto a given eigenvector. Note that this will map each data point to a single number (the length of the projection) for each eigenvector and we get our transformed data set by collecting all scalars for one eigenvector and considering them as a new feature and doing the same for all other eigenvectors. 
 
-Typically, will only want to those dimensions with highest eigenvalues.
+To visualise this process, we can post-multiply the transformed features once more by $$E$$ to arrive at the _vector projections_ of the data points and be able visualise their relationship to the original data better. Below I've done this for the principal components associated with each eigenvector. It is easy to see that the projections associated with the larger of the two eigenvalues (i.e. the first principal component) capture a larger variance in the original data.
 
-
-Intuition 1: linear transformation to eigenbasis
-Intuition 2: projection on eigenvectors
+![Graph1](/assets/graphs/pc1.png)
+![Graph2](/assets/graphs/pc2.png)
