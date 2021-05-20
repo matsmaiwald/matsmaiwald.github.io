@@ -5,13 +5,14 @@ categories: misc
 use_math: true
 ---
 
+In this post, I want to look at the mathematics behind one of the most popular methods for dimensionality reduction: principal component analysis aka PCA.
+
 # Goal and motivation
-Want to find a linear transformation which, once applied to our original data, maximises variance and minimises redudancy in our data. Explain why this is the same.
+At a high level, PCA wants to find a linear transformation of our data that maximises variance within features and minimises redudancy among them.
 
-# Generate test data
-
-# Variance-Covariance matrix
-Standardise data (not needed here) and calculate variance covariance matrix.
+# Set up
+Say we have a data set which contains two explanatory variables as column vectors. Because we want to find principal components that explain a lot of the variance in our data, we need to make sure that we don't focus unduly on any one specific feature, just because it is measured on a different scale. To that end, let's standardise our variables by subtracting featurewise means. Let $$X$$ denote the demeaned data set.
+With this first step done, we can go on by calculate variance covariance matrix of our data as $$C_X = \frac{1}{N-1}  X^TX $$, where $$N$$ is the number of observations.
 
 # Find a linear transformation that solves our problem.
 A matrix is just a linear transformation, so we'll want to find 
