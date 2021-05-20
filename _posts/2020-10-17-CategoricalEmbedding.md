@@ -13,7 +13,7 @@ Similar to word embeddings, embeddings of categorical variables are encodings th
 
 
 ## Obtaining categorical embeddings as part of training a neural network
-Embeddings are generally obtained as part of training a neural network on a supervised learning task. The embedding layer that encodes a categorical variable is situated right at the beginning of the neural network, directly between the "raw" categorical variable and the rest of the network. __The main component of the embedding layer is the embedding matrix $E$__ with dimensions $e \times c$, where $e$ is the number of dimensions which we want the embedding to have and $c$ is the cardinality of the categorical variable. __To map categorical inputs to their embeddings, we first construct a one-hot encoding matrix $O$__ of dimension $n \times c$, where $n$ is the size of our data sample and $c$ is again the cardinality of the categorical variable. Each row of the one-hot encoding matrix correspsonds to a data point and each column to one of the unique values that the categorical variable can take. The matrix is filled with ones and zeros only and a one indicates that for the data point corresponding to the row, the categorical variable equals the value corresponding to the column. Otherwise, the entry is zero. 
+Embeddings are generally obtained as part of training a neural network on a supervised learning task. The embedding layer that encodes a categorical variable is situated right at the beginning of the neural network, directly between the "raw" categorical variable and the rest of the network. __The main component of the embedding layer is the embedding matrix $$E$$__ with dimensions $$e \times c$$, where $$e$$ is the number of dimensions which we want the embedding to have and $$c$$ is the cardinality of the categorical variable. __To map categorical inputs to their embeddings, we first construct a one-hot encoding matrix $$O$$__ of dimension $$n \times c$$, where $$n$$ is the size of our data sample and $c$ is again the cardinality of the categorical variable. Each row of the one-hot encoding matrix correspsonds to a data point and each column to one of the unique values that the categorical variable can take. The matrix is filled with ones and zeros only and a one indicates that for the data point corresponding to the row, the categorical variable equals the value corresponding to the column. Otherwise, the entry is zero. 
 
 __By multiplying the one-hot encoding matrix by the transpose of the embedding matrix, we obtain a matrix of embedded inputs__ whose rows equal the embedded value corresponding to the rows of the one-hot encoding matrix. This matrix of embedded inputs is then consumed by the following layers of the network.
 
@@ -23,7 +23,7 @@ During training, we randomly initialise the embeddings matrix and update its ent
 
 ## Choosing the size of the embedding
 
-The optimal embedding size will depend on the problem at hand, but a good rule of thumb that tends to work well empirically is to set a variable's embedding size equal to $\min(50, (cardinality/2))$.
+The optimal embedding size will depend on the problem at hand, but a good rule of thumb that tends to work well empirically is to set a variable's embedding size equal to $$\min(50, (cardinality/2))$$.
 
 
 ## Reference
