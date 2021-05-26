@@ -8,7 +8,7 @@ use_math: true
 In this post, I want to look at the mathematics behind one of the most popular methods for dimensionality reduction: principal component analysis aka PCA.
 
 # Goal and motivation
-At a high level, PCA wants to find a linear transformation of our data that maximises variance within features and minimises redudancy among them.
+At a high level, PCA finds a linear transformation of our original data that produces new, transformed variables which are independent of each other (in contrast to our original data, which will typically contain variables that are correlated with each other) and capture as much of the variance in the original data as possible.
 
 # Set up
 Say we have a data set which contains two explanatory variables as column vectors. Because we want to find principal components that explain a lot of the variance in our data, we need to make sure that we don't focus unduly on any one specific feature, just because it is measured on a different scale. To that end, let's standardise our variables by subtracting featurewise means. Let $$X$$ denote the demeaned data set.
