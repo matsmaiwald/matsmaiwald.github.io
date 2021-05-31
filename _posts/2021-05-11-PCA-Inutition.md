@@ -10,13 +10,13 @@ In this post, I want to look at the mathematics behind one of the most popular m
 # Goal and motivation
 At a high level, PCA finds a linear transformation of our original data that produces new, transformed variables which are independent of each other (in contrast to our original data, which will typically contain variables that are correlated with each other) and capture as much of the variance in the original data as possible.
 
+# Linear transformation = matrix multiplication
+One key idea to grasp in the context of PCA is that matrix multiplication can be interpreted as a linear transformation ([this](https://www.youtube.com/watch?v=kYB8IZa5AuE)video explains this beautifully in a visual way). So we can restate our problem as finding a matrix $$P$$ in $$Y = PX$$ such that $$Y$$ displays the desired properties.
+
 # Set up
 Imagine we have a data set which contains two explanatory variables as column vectors. Because we want to find principal components that explain a lot of the variance in our data, we need to make sure that we don't focus unduly on any one specific variable, just because it is measured on a different scale. To that end, let's standardise each variable by calculating its mean value and subtracting that from each of its observations. Let $$X$$ denote the demeaned data set.
 With this first step done, we can go on by calculate variance covariance matrix of our data as $$C_X = \frac{1}{N-1}  X^TX $$, where $$N$$ is the number of observations.
 
-# Find a linear transformation that solves our problem.
-Key idea: a matrix is just a linear transformation, so we'll want to find 
-$$P$$ in $$Y = PX$$. (Add link to video!!!)
 
 # Spectral theorem and matrix diagonalisation: identifying the right linear transformation
 If our transformed data is to have minimal redundancy, then its covariances should be zero and the covariance variance matrix should be a diagonal matrix.
@@ -60,6 +60,6 @@ To visualise this process, we can post-multiply the transformed features once mo
 ![Graph1](/assets/graphs/pc1.png)
 ![Graph2](/assets/graphs/pc2.png)
 
-
-(Add link to code!!!)
-(Add references!!!)
+# References
+- _Stephen Marslsnd: Machine Learning - An Algorithmic Perspective (Second Edition), Chapter 6.2_
+- [3Blue1Brown video on eigenvectors and eigenvalues](https://www.youtube.com/watch?v=PFDu9oVAE-g)
