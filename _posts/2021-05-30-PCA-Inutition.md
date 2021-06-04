@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "PCA under hood"
+title:  "PCA under the hood"
 categories: misc
 use_math: true
 ---
@@ -8,7 +8,7 @@ use_math: true
 In this post, I want to look at the mathematics behind one of the most popular methods for dimensionality reduction: principal component analysis aka PCA.
 
 # Goal and motivation
-At a high level, PCA finds a linear transformation of our original data that produces new, transformed variables which are independent of each other (in contrast to our original data, which will typically contain variables that are correlated with each other) and capture as much of the variance in the original data as possible.
+At a high level, PCA finds a linear transformation of our original data that produces new, transformed variables. These variables are independent of each other (in contrast to our original data, which will typically contain variables that are correlated with each other) and try to capture as much of the original variance in as few independent variables as possible. 
 
 # Linear transformation = matrix multiplication
 One key idea to grasp in the context of PCA is that matrix multiplication can be interpreted as a linear transformation (check out [this](https://www.youtube.com/watch?v=kYB8IZa5AuE) video for a great visual explanation). With this in mind, we can restate our problem as finding a matrix $$P$$ in $$Y = PX$$ such that $$Y$$ displays the desired properties.
@@ -23,7 +23,7 @@ If our transformed data is to have minimal redundancy, then its covariances shou
 From the spectral theorem, we also know that we can diagonalise a matrix via its eigenvectors.
 Specifically, for any (symmetric) matrix $$A$$, we have that  $$ E^{-1}AE = D$$, where E is a matrix that has the eigenvectors of A as its columns and D is a diagonal matrix with the associated eigenvalues as its entries.
 
-Now comes the key insight: By choosing the matrix of eigenvectors associated with the variance covariance matrix of our data, i.e. by setting $$ P=E $$, we'll end up with with a transformed dataset the covariance variance matrix of which will be diagonal, indicating that the transformed features are all independent of each other. Additionally, if we order the diagonal entries of $$D$$ by the size of the eigenvalues and if we sort the columns of $$E$$ in the same order (such that the eigenvector in the $$ith$$ column of E corresponds to the entry of $$D$$ in the $$ith$$ row and $$ith$$ column) the transformed features $$PX$$ will be ordered by the amount of variance they capture from the original, untransformed data.
+Now comes the key insight: By choosing the matrix of eigenvectors associated with the variance covariance matrix of our data, i.e. by setting $$ P=E $$, we'll end up with with a transformed dataset of whicht the covariance variance matrix is diagonal, indicating that the columns i.e. the transformed features are linearly independent of each other or in other words uncorrelated. Additionally, if we order the diagonal entries of $$D$$ by the size of the eigenvalues and if we sort the columns of $$E$$ in the same order (such that the eigenvector in the $$ith$$ column of E corresponds to the entry of $$D$$ in the $$ith$$ row and $$ith$$ column) the transformed features $$PX$$ will be ordered by the amount of variance they capture from the original, untransformed data.
 
 Let's look at the math to see why this is true.
 
