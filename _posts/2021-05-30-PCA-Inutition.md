@@ -31,9 +31,9 @@ First, note that the transformation matrix $$P$$ will show up twice in the varia
 
 $$ C_Y = \frac{1}{N} YY^T =  \frac{1}{N} (PX)(PX)^T = P (\frac{1}{N} XX^T) P^T = PC_XP^T$$.
 
-If we now substitute in E^T for P, and use the fact that the transpose of an orthogonal matrix (in our case the matrix of eigenvectors) equals its inverse, we can see that $$C_Y$$, the variance covariance of the transformed data will be diagonal:
+If we now substitute in $$E^T$$ for $$P$$, and use the fact that the transpose of an orthogonal matrix (in our case the matrix of eigenvectors) equals its inverse, we can see that $$C_Y$$, the variance covariance of the transformed data will be diagonal:
 
-$$ C_Y = PC_XP^T = E^TC_XE = E^{(-1)}C_XE = D $$, where the last equality follws straight from the definition of an eigenvector.
+$$ C_Y = PC_XP^T = E^TC_XE = E^{-1}C_XE = D $$, where the last equality follws straight from the definition of an eigenvector.
 
 This then means, that __all we have to do to carry out PCA is find the eigenvectors of the variance covariance matrix of our data to get matrix $$E$$ and then pre-multiply our data matrix by its transpose__. If we want to only keep those principal components with the largest explanatory power (as far as variance in our original data is concerned) then we can discard $$ j $$ unwanted eigenvectors, making E a non-square matrix with dimentions $$k$$ times $$k-j$$. Pre-multiplying our data by the transpose of this reduced version of $$ E $$ will transform our data into $$k-j$$ principal components thereby reducing the dimensionality of our data. 
 
@@ -57,9 +57,9 @@ More formally, what happens in the transformation is that we carry out a change 
 
 ### PCA as projection of data onto its axes of largest variance
 
-In terms of projections, what's happening when we multiply our data by $$E$$ is that we get the _scalar projections_ of our data on each eigenvector. This corresponds to the length of the projection of each data point onto a given eigenvector. Note that this will map each data point to a single number (the length of the projection) for each eigenvector and we get our transformed data set by collecting all scalars for one eigenvector and considering them as a new variable and doing the same for all other eigenvectors. 
+In terms of projections, what's happening when we multiply our data by $$E^T$$ is that we get the _scalar projections_ of each of our $$n$$ observations on each of our $$k$$ eigenvectors. These scalar projections are just (scaled) dot products of an eigenvector and a $$k$$-dimensional column vector corresponding to an individual observation in our data (where the scaling factor is the norm of the eigenvector). The numerical value of the scalar projections correspond to the length of the projection. Note, that this will map each data point to a single number for each eigenvector.
 
-To visualise this process, we can multiply the transformed features once more by $$E$$ to arrive at the _vector projections_ of the data points and be able visualise their relationship to the original data better. Below I've done this for the principal components associated with each eigenvector. It is easy to see that the projections associated with the larger of the two eigenvalues (i.e. the first principal component) capture a larger variance in the original data.
+To visualise this process, we can multiply the transformed features once more by $$E^T$$ to arrive at the _vector projections_ of the data points and be able visualise their relationship to the original data better. Below I've done this for the principal components associated with each eigenvector. It is easy to see that the projections associated with the larger of the two eigenvalues (i.e. the first principal component) capture a larger variance in the original data.
 
 ![Graph1](/assets/graphs/pc1.png)
 ![Graph2](/assets/graphs/pc2.png)
