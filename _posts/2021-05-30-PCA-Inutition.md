@@ -47,9 +47,11 @@ Let's look at each in turn.
 
 ### PCA as transformation of data to eigenbasis
 
-If we think of matrices as describing linear transformations, then you can think of PCA as just moving around our data points in such a way that the transformed data has the properties that we desire. As an example in the 2D case, look at the original and transformed data on the left and right below. 
+If we think of matrices as describing linear transformations, then you can think of PCA as just moving around our data points in such a way that the transformed data has the properties that we desire. As an example in the 2D case, look at the original (figure 1) and transformed (figure 2) data below. 
 
+##### Figure 1: Original data
 ![Graph1](/assets/graphs/orig_data_w_eig_vectors.png)
+##### Figure 2: Transformed data
 ![Graph2](/assets/graphs/transformed_data.png)
 
 More formally, what happens in the transformation is that we carry out a change of basis i.e. we move from using the typical basis vectors $$i$$ and $$j$$ (corresponding to the x and y axis in the 2d case) to using the eigenvectors in $$E$$ as our basis vectors. This special basis that we switch to is also called _eigenbasis_.
@@ -59,9 +61,11 @@ More formally, what happens in the transformation is that we carry out a change 
 
 In terms of projections, what's happening when we multiply our data by $$E^T$$ is that we get the _scalar projections_ of each of our $$n$$ observations on each of our $$k$$ eigenvectors. These scalar projections are just (scaled) dot products of an eigenvector and a $$k$$-dimensional column vector corresponding to an individual observation in our data (where the scaling factor is the norm of the eigenvector). The numerical value of the scalar projections correspond to the length of the projection. Note, that this will map each data point to a single number for each eigenvector.
 
-To visualise this process, we can multiply the transformed features once more by $$E^T$$ to arrive at the _vector projections_ of the data points and be able visualise their relationship to the original data better. Below I've done this for the principal components associated with each eigenvector. It is easy to see that the projections associated with the larger of the two eigenvalues (i.e. the first principal component) capture a larger variance in the original data.
+To visualise this process, we can multiply the transformed features once more by $$E^T$$ to arrive at the _vector projections_ of the data points and be able visualise their relationship to the original data better. Below, in figures 3 and 4, I've done this for the principal components associated with each eigenvector. To make it easier to verify visually that this works, I have highlighted three exemplary points in orange. It is easy to see that the projections associated with the larger of the two eigenvalues (i.e. the first principal component) capture a larger variance in the original data.
 
+##### Figure 3
 ![Graph1](/assets/graphs/pc1.png)
+##### Figure 4
 ![Graph2](/assets/graphs/pc2.png)
 
 # References
